@@ -1,5 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://bxux55ykeiwok"]
+[gd_scene load_steps=16 format=3 uid="uid://bxux55ykeiwok"]
 
+[ext_resource type="Script" path="res://player.gd" id="1_418cy"]
 [ext_resource type="PackedScene" uid="uid://c8v5gxi48jcyb" path="res://gun.tscn" id="2_kpn0m"]
 [ext_resource type="PackedScene" uid="uid://cxurrk28dw808" path="res://birb.glb" id="2_t6sqy"]
 [ext_resource type="Texture2D" uid="uid://ctsyelhdkt6ro" path="res://addons/kenney_particle_pack/star_06.png" id="3_i665x"]
@@ -147,6 +148,7 @@ _data = {
 }
 
 [node name="player" type="CharacterBody3D"]
+script = ExtResource("1_418cy")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 
