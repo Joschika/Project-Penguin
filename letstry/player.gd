@@ -14,9 +14,12 @@ extends CharacterBody3D
 
 
 @export_group("Nodes")
+#on readys uhhh burger
 @onready var Camera = $head/Camera3D
 @onready var Head = $head
 @onready var anim_player = $AnimationPlayer
+@onready var muzzle_flash = $head/Camera3D/gun/muzzle
+
 
 
 var LookDir : Vector3 = Vector3.ZERO
@@ -98,4 +101,6 @@ func _physics_process(delta: float) -> void:
 func play_shoot_effects():
 	anim_player.stop()
 	anim_player.play("shoot")
+	muzzle_flash.restart()
+	muzzle_flash.emitting = true 
 

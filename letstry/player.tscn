@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bxux55ykeiwok"]
+[gd_scene load_steps=15 format=3 uid="uid://bxux55ykeiwok"]
 
 [ext_resource type="PackedScene" uid="uid://c8v5gxi48jcyb" path="res://gun.tscn" id="2_kpn0m"]
 [ext_resource type="PackedScene" uid="uid://cxurrk28dw808" path="res://birb.glb" id="2_t6sqy"]
@@ -8,8 +8,18 @@
 radius = 0.283194
 height = 1.09936
 
+[sub_resource type="Gradient" id="Gradient_y3gom"]
+offsets = PackedFloat32Array(0, 0.0980114, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1nl0x"]
+gradient = SubResource("Gradient_y3gom")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ko5x7"]
+angle_min = 45.0
+angle_max = 45.0
 gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_1nl0x")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h3wlm"]
 transparency = 1
@@ -17,10 +27,14 @@ shading_mode = 0
 vertex_color_use_as_albedo = true
 albedo_color = Color(1, 1, 0.709804, 1)
 albedo_texture = ExtResource("3_i665x")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_qxfds"]
 material = SubResource("StandardMaterial3D_h3wlm")
-size = Vector2(1, 1)
+size = Vector2(0.1, 0.1)
 orientation = 2
 
 [sub_resource type="Animation" id="Animation_j651o"]
@@ -157,8 +171,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000727415, -0.0563948, -0.
 transform = Transform3D(-0.0499633, 0, 0.00191566, 0, 0.05, 0, -0.00191566, 0, -0.0499633, 0.105992, -0.136985, -0.122646)
 
 [node name="muzzle" type="GPUParticles3D" parent="head/Camera3D/gun"]
-transform = Transform3D(0.999108, 0.0324031, -0.027099, -0.0323813, 0.999477, 0.00124154, 0.027125, -0.000362936, 0.999633, 0.0756655, 2.25892, 3.4153)
+transform = Transform3D(0.999108, 0.0324031, -0.027099, -0.0323813, 0.999477, 0.00124154, 0.027125, -0.000362936, 0.999633, 0.0755931, 2.25892, 3.4153)
+emitting = false
 amount = 1
+lifetime = 0.25
+one_shot = true
 visibility_aabb = AABB(-4, -4.02832, -4, 8, 8, 8)
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_ko5x7")
