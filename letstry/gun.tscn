@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8v5gxi48jcyb"]
+
+[ext_resource type="PackedScene" uid="uid://cdsa1suwoy5d0" path="res://gun.blend" id="1_xrad0"]
+[ext_resource type="Texture2D" uid="uid://qmxhij43dsdj" path="res://addons/fortnite.png" id="2_ui65c"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ra63"]
+albedo_texture = ExtResource("2_ui65c")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s5sdy"]
+
+[node name="gun" instance=ExtResource("1_xrad0")]
+
+[node name="Cube" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_4ra63")
+surface_material_override/0 = SubResource("StandardMaterial3D_s5sdy")

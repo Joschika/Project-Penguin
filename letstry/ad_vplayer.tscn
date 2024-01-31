@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://bhf0otkox1d8a"]
+
+[ext_resource type="Script" path="res://ADVplayer.gd" id="1_tc1dc"]
+[ext_resource type="PackedScene" uid="uid://cxurrk28dw808" path="res://birb.glb" id="2_bqt7d"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ongxe"]
+height = 0.890257
+radius = 0.311768
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_w2htl"]
+height = 0.212547
+radius = 0.154738
+
+[node name="ADVplayer" type="CharacterBody3D"]
+script = ExtResource("1_tc1dc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.466959, 0)
+shape = SubResource("CylinderShape3D_ongxe")
+
+[node name="foot" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0826475, 0)
+shape = SubResource("CylinderShape3D_w2htl")
+
+[node name="birb" parent="." instance=ExtResource("2_bqt7d")]
+transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 0, 0, 0)
+
+[node name="head" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="head"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5.50788e-09, 0.736489, 0.0630028)
+fov = 90.0
