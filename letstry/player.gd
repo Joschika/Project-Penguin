@@ -16,6 +16,7 @@ extends CharacterBody3D
 @export_group("Nodes")
 @onready var Camera = $head/Camera3D
 @onready var Head = $head
+@onready var anim_player = $AnimationPlayer
 
 
 var LookDir : Vector3 = Vector3.ZERO
@@ -32,13 +33,14 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event):
 	
 	# Look
 	if event is InputEventMouseMotion:
 		LookDir.x -= event.relative.x * LookSens.x
 		LookDir.y = clamp(LookDir.y - event.relative.y * LookSens.y, LookAngle[0], LookAngle[1])
-
+	if Input.is_action_just_pressed("shoot") and anim_player.current_animation != "shoot":
+		play_shoot_effects()
 
 func _process(delta: float) -> void:
 	# Applies LookDir
@@ -80,5 +82,20 @@ func _physics_process(delta: float) -> void:
 		velocity.x = lerp(velocity.x, 0.0, delta * Decceleration)
 		velocity.z = lerp(velocity.z, 0.0, delta * Decceleration)
 	
+#animations
+	if anim_player.current_animation == "shoot":
+		pass
+
+	elif InputDir != Vector2.ZERO and is_on_floor():
+		anim_player.play("move")
+	else:
+		anim_player.play("idle")
+	
 	move_and_slide()
+	
+	
+	
+func play_shoot_effects():
+	anim_player.stop()
+	anim_player.play("shoot")
 
