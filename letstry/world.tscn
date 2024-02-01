@@ -23,7 +23,7 @@ script = ExtResource("1_7wh5d")
 environment = SubResource("Environment_ikuaj")
 
 [node name="aimmap" parent="." instance=ExtResource("1_fmdhy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.71985, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.135548, -3.66028, -0.29482)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 21, 20)

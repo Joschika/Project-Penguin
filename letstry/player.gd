@@ -18,7 +18,7 @@ extends CharacterBody3D
 @onready var Camera = $head/Camera3D
 @onready var Head = $head
 @onready var anim_player = $AnimationPlayer
-@onready var muzzle_flash = $head/Camera3D/gun/muzzle
+@onready var muzzle_flash = $head/Camera3D/Node3D/muzzle
 
 
 
@@ -44,6 +44,9 @@ func _unhandled_input(event):
 		LookDir.y = clamp(LookDir.y - event.relative.y * LookSens.y, LookAngle[0], LookAngle[1])
 	if Input.is_action_just_pressed("shoot") and anim_player.current_animation != "shoot":
 		play_shoot_effects()
+	if Input.is_action_just_pressed("inspect"):
+		play_inspect()
+
 
 func _process(delta: float) -> void:
 	# Applies LookDir
@@ -89,18 +92,22 @@ func _physics_process(delta: float) -> void:
 	if anim_player.current_animation == "shoot":
 		pass
 
-	elif InputDir != Vector2.ZERO and is_on_floor():
-		anim_player.play("move")
-	else:
-		anim_player.play("idle")
-	
+	#elif InputDir != Vector2.ZERO and is_on_floor():
+		#anim_player.play("move")
+	#else:
+	#	anim_player.play("idle")
+	#broke all the above but spinny 
 	move_and_slide()
 	
-	
-	
+
 func play_shoot_effects():
 	anim_player.stop()
 	anim_player.play("shoot")
 	muzzle_flash.restart()
-	muzzle_flash.emitting = true 
-
+	muzzle_flash.emitting = true
+	
+	#im stupid
+	
+func play_inspect():
+	anim_player.stop
+	anim_player.play("inspect")

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmr44krmg70on"]
+
+[ext_resource type="PackedScene" uid="uid://b06h32c2xbd7u" path="res://Gun models/Revolver.glb" id="1_2bvgr"]
+
+[node name="Revolver" instance=ExtResource("1_2bvgr")]
+
+[node name="Revolver_02_Cube" parent="." index="0"]
+cast_shadow = 0
