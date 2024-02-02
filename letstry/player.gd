@@ -31,12 +31,20 @@ var FinalMoveVelocity : float = 0.0
 
 var Sprinting : bool = false
 
+
+func _enter_tree():
+	set_multiplayer_authority(str(name).to_int())
+
 func _ready() -> void:
 	# Locks Mouse
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	
-
+	if not is_multiplayer_authority(): return
+	Camera.current = true
 func _unhandled_input(event):
+	#MP AUTH
+	if not is_multiplayer_authority(): return
+	
+	
 	
 	# Look
 	if event is InputEventMouseMotion:
@@ -51,10 +59,19 @@ func _unhandled_input(event):
 func _process(delta: float) -> void:
 	# Applies LookDir
 	rotation_degrees.y = LookDir.x
-	Head.rotation_degrees.x = LookDir.y
+	rotation_degrees.x = LookDir.y
 
 func _physics_process(delta: float) -> void:
+	if not is_multiplayer_authority(): return
+	
+	
+	
+	
 	InputDir = Input.get_vector('left', 'right', 'up', 'down')
+	
+	
+	
+	
 	
 	MoveDir = transform.basis * Vector3(InputDir.x, 0, InputDir.y).normalized()
 	
@@ -89,7 +106,7 @@ func _physics_process(delta: float) -> void:
 		velocity.z = lerp(velocity.z, 0.0, delta * Decceleration)
 	
 #animations
-	if anim_player.current_animation == "shoot":
+	#if anim_player.current_animation == "shoot":
 		pass
 
 	#elif InputDir != Vector2.ZERO and is_on_floor():
@@ -109,5 +126,4 @@ func play_shoot_effects():
 	#im stupid
 	
 func play_inspect():
-	anim_player.stop
 	anim_player.play("inspect")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bxux55ykeiwok"]
+[gd_scene load_steps=18 format=3 uid="uid://bxux55ykeiwok"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_418cy"]
 [ext_resource type="PackedScene" uid="uid://cxurrk28dw808" path="res://birb.glb" id="2_t6sqy"]
@@ -58,6 +58,21 @@ resource_name = "idle"
 length = 3.0
 loop_mode = 1
 
+[sub_resource type="Animation" id="Animation_7v5c0"]
+resource_name = "inspect"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("head/Camera3D/Node3D/Revolver:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [Vector3(0, -3.14159, 0), Vector3(-6.28319, -3.14159, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_ggt6d"]
 resource_name = "move"
 loop_mode = 1
@@ -79,21 +94,6 @@ tracks/0/keys = {
 "values": [Vector3(-0.811578, -3.14159, 0), Vector3(0, -3.14159, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_7v5c0"]
-resource_name = "inspect"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("head/Camera3D/Node3D/Revolver:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.5, 0.5),
-"update": 0,
-"values": [Vector3(0, -3.14159, 0), Vector3(-6.28319, -3.14159, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_aps0k"]
 _data = {
 "RESET": SubResource("Animation_j651o"),
@@ -103,7 +103,19 @@ _data = {
 "shoot": SubResource("Animation_pax6c")
 }
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_kxhrl"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("head/Camera3D/Node3D/Revolver:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
 [node name="player" type="CharacterBody3D"]
+collision_layer = 2
 script = ExtResource("1_418cy")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -129,7 +141,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000727415, -0.0592455, 0.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000727415, -0.740238, 0.152163)
 
 [node name="Revolver" parent="head/Camera3D/Node3D" instance=ExtResource("4_b3ci1")]
-transform = Transform3D(-0.05, 0, 4.37114e-09, 0, 0.05, 0, -4.37114e-09, 0, -0.05, 0.152946, 0.67063, -0.371939)
+transform = Transform3D(-0.05, 0, -1.26759e-07, 0, 0.05, 0, 1.26759e-07, 0, -0.05, 0.152946, 0.67063, -0.371939)
 
 [node name="muzzle" type="GPUParticles3D" parent="head/Camera3D/Node3D"]
 transform = Transform3D(-0.0498668, -0.00161966, 0.00326891, -0.00161907, 0.0499739, 6.2077e-05, -0.00326921, -4.39399e-05, -0.0498931, 0.153394, 0.692181, -0.523226)
@@ -148,3 +160,6 @@ libraries = {
 }
 autoplay = "idle"
 playback_default_blend_time = 0.05
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_kxhrl")
