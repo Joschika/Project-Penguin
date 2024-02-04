@@ -15,10 +15,9 @@ extends CharacterBody3D
 
 @export_group("Nodes")
 #on readys uhhh burger
-@onready var Camera = $head/Camera3D
-@onready var Head = $head
+@onready var Camera = $Camera3D
 @onready var anim_player = $AnimationPlayer
-@onready var muzzle_flash = $head/Camera3D/Node3D/muzzle
+@onready var muzzle_flash = $Camera3D/muzzle
 
 
 
@@ -42,6 +41,8 @@ func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		LookDir.x -= event.relative.x * LookSens.x
 		LookDir.y = clamp(LookDir.y - event.relative.y * LookSens.y, LookAngle[0], LookAngle[1])
+	
+	
 	if Input.is_action_just_pressed("shoot") and anim_player.current_animation != "shoot":
 		play_shoot_effects()
 	if Input.is_action_just_pressed("inspect"):
@@ -50,13 +51,29 @@ func _unhandled_input(event):
 
 func _process(delta: float) -> void:
 	# Applies LookDir
+<<<<<<< Updated upstream
 	rotation_degrees.y = LookDir.x
 	Head.rotation_degrees.x = LookDir.y
+=======
+	Camera.rotation_degrees.y = LookDir.x
+	Camera.rotation_degrees.x = LookDir.y
+	
+	if not is_multiplayer_authority(): return
+
+>>>>>>> Stashed changes
 
 func _physics_process(delta: float) -> void:
 	InputDir = Input.get_vector('left', 'right', 'up', 'down')
 	
+<<<<<<< Updated upstream
 	MoveDir = transform.basis * Vector3(InputDir.x, 0, InputDir.y).normalized()
+=======
+	
+	
+	
+	
+	MoveDir = Camera.basis * Vector3(InputDir.x, 0, InputDir.y).normalized()
+>>>>>>> Stashed changes
 	
 	
 	# Gravity
@@ -89,8 +106,13 @@ func _physics_process(delta: float) -> void:
 		velocity.z = lerp(velocity.z, 0.0, delta * Decceleration)
 	
 #animations
+<<<<<<< Updated upstream
 	if anim_player.current_animation == "shoot":
 		pass
+=======
+	#if anim_player.current_animation == "shoot":
+		#pass
+>>>>>>> Stashed changes
 
 	#elif InputDir != Vector2.ZERO and is_on_floor():
 		#anim_player.play("move")
